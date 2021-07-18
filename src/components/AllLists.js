@@ -1,20 +1,31 @@
 import React from "react";
 import List from "./List";
+import { useQuery, gql } from "@apollo/client";
+
+const getAllListsQuery = gql`
+  {
+    trips {
+      storeName
+      date
+      id
+    }
+  }
+`;
 
 const AllLists = (props) => {
-  const someLists = [
-    {
-      id: "1",
-      storeName: "Home Depot",
-      date: "7-18-21",
-      items: [{ name: "Grout" }, { name: "Wood Putty" }, { name: "paint" }],
-    },
-  ];
+  const { data, loading, error } = useQuery(getAllListsQuery);
+  console.log(data.trips, "data from query");
+  console.log(loading, "loading?");
+  console.log(error, "error?");
   return (
     <div>
-      {someLists.map((list) => (
-        <List key={list.id} list={list} />
-      ))}
+      {/* {!loading && (
+        <>
+          {data.trips.map((list) => (
+            <List key={list.id} list={list} />
+          ))}
+        </>
+      )} */}
     </div>
   );
 };
