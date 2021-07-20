@@ -1,13 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const List = (props) => {
-  const { list } = props;
+  const { trip } = props;
   return (
     <div>
-      {list.storeName} on {list.date} <br />
-      {list.items.map((item) => {
-        return <li>{item.name}</li>;
-      })}
+      <Link to={`/lists/${trip.id}`}>
+        {trip.storeName} on {trip.date}
+      </Link>
+      <br />
+      {/* {trip.items.map((item) => {
+        return <li key={item.id}>{item.name}</li>;
+      })} */}
     </div>
   );
 };

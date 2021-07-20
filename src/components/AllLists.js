@@ -1,5 +1,7 @@
 import React from "react";
 import List from "./List";
+import ListDetails from "./ListDetails";
+import { Link } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 
 const getAllListsQuery = gql`
@@ -8,24 +10,31 @@ const getAllListsQuery = gql`
       storeName
       date
       id
+      items {
+        name
+        inCart
+        id
+      }
     }
   }
 `;
 
 const AllLists = (props) => {
-  const { data, loading, error } = useQuery(getAllListsQuery);
-  console.log(data.trips, "data from query");
-  console.log(loading, "loading?");
-  console.log(error, "error?");
+  const { data } = useQuery(getAllListsQuery);
   return (
     <div>
-      {/* {!loading && (
+      {data && (
         <>
-          {data.trips.map((list) => (
-            <List key={list.id} list={list} />
+          {data.trips.map((trip) => (
+            <>
+              <Link to={`/lists/${trip.id}`}>
+                {trip.storeName} on {trip.date}
+              </Link>
+              <br />
+            </>
           ))}
         </>
-      )} */}
+      )}
     </div>
   );
 };
