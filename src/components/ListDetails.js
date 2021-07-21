@@ -1,9 +1,10 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
 
-const getAllListItemsQuery = gql`
-  query ($id: String!) {
-    trip(id: $list_id) {
+const GET_LIST_ITEMS = gql`
+  query ($id: ID) {
+    trip(id: $id) {
+      id
       items {
         name
         id
@@ -16,17 +17,26 @@ const getAllListItemsQuery = gql`
 const ListDetails = (props) => {
   const list_id = props.match.params.list_id;
 
-  const { data } = useQuery(getAllListItemsQuery, {
+  const { data, loading, error } = useQuery(GET_LIST_ITEMS, {
     variables: {
       id: list_id,
     },
   });
 
   console.log(data, "data from list details query");
+  console.log(loading, "loading?");
+  console.log(error, "error?");
 
   return (
     <>
       <h3>Details for list...</h3>
+      {!loading && (
+        <>
+          {data.trip.items.map((item) => (
+            <li>{item.name}</li>
+          ))}
+        </>
+      )}
     </>
   );
 };
