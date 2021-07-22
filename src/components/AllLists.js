@@ -3,24 +3,10 @@ import List from "./List";
 import ListDetails from "./ListDetails";
 import { Link } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
-
-const getAllListsQuery = gql`
-  {
-    trips {
-      storeName
-      date
-      id
-      items {
-        name
-        inCart
-        id
-      }
-    }
-  }
-`;
+import { GET_ALL_LISTS_QUERY } from "../quearies/quearies";
 
 const AllLists = (props) => {
-  const { data } = useQuery(getAllListsQuery);
+  const { data } = useQuery(GET_ALL_LISTS_QUERY);
   return (
     <div>
       {data && (
