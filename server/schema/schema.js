@@ -94,6 +94,18 @@ const Mutation = new GraphQLObjectType({
         return item.save();
       },
     },
+    updateItem: {
+      type: ItemType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        inCart: { type: new GraphQLNonNull(GraphQLBoolean) },
+      },
+      resolve(parent, args) {
+        let item = Item.findById(args.id);
+        item.inCart = args.inCart;
+        return item.save();
+      },
+    },
     addTrip: {
       type: TripType,
       args: {
