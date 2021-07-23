@@ -1,10 +1,10 @@
 import React from "react";
-import { useMutation, useQuery, gql } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { GET_LIST_ITEMS } from "../quearies/quearies";
-import { UPDATE_CART_MUTATION } from "./mutations/mutations";
+import { UPDATE_CART_MUTATION } from "../mutations/mutations";
 
 const ListDetails = (props) => {
   const list_id = props.match.params.list_id;
@@ -30,7 +30,7 @@ const ListDetails = (props) => {
                     checked={item.inCart}
                     onChange={() =>
                       handleChange({
-                        variables: { id: item.id, inCart: item.inCart },
+                        variables: { inCart: !item.inCart, id: item.id },
                       })
                     }
                     name={item.name}
