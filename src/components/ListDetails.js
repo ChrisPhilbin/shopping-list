@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Grid from "@material-ui/core/Grid";
 import { GET_LIST_ITEMS } from "../quearies/quearies";
 import { UPDATE_CART_MUTATION } from "../mutations/mutations";
 
@@ -19,31 +20,40 @@ const ListDetails = (props) => {
 
   return (
     <>
-      <h3>Details for list...</h3>
-      <FormGroup row>
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Grid item lg>
+          <h3>Details for list...</h3>
+        </Grid>
         {!loading && (
           <>
             {data.trip.items.map((item) => (
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={item.inCart}
-                    onChange={() =>
-                      handleChange({
-                        variables: { inCart: !item.inCart, id: item.id },
-                      })
-                    }
-                    name={item.name}
-                    color="primary"
-                  />
-                }
-                label={item.name}
-                key={item.id}
-              />
+              <Grid item xs>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={item.inCart}
+                      onChange={() =>
+                        handleChange({
+                          variables: { inCart: !item.inCart, id: item.id },
+                        })
+                      }
+                      name={item.name}
+                      color="primary"
+                    />
+                  }
+                  label={item.name}
+                  style={
+                    item.inCart
+                      ? { color: "red", textDecoration: "line-through" }
+                      : null
+                  }
+                  key={item.id}
+                />
+              </Grid>
             ))}
           </>
         )}
-      </FormGroup>
+      </Grid>
     </>
   );
 };
