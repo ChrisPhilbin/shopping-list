@@ -36,7 +36,6 @@ const TripType = new GraphQLObjectType({
     items: {
       type: new GraphQLList(ItemType),
       resolve(parent, args) {
-        console.log(parent.id, "parent object from trip resolver");
         return Item.find({ tripId: parent.id });
       },
     },
@@ -97,13 +96,11 @@ const Mutation = new GraphQLObjectType({
     updateItem: {
       type: ItemType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
-        inCart: { type: new GraphQLNonNull(GraphQLBoolean) },
+        id: { type: GraphQLNonNull(GraphQLID) },
+        inCart: { type: GraphQLNonNull(GraphQLBoolean) },
       },
       resolve(parent, args) {
-        let item = Item.findById(args.id);
-        item.inCart = args.inCart;
-        return item.save();
+        return Item.updateItem(args.id, args.inCart);
       },
     },
     addTrip: {
