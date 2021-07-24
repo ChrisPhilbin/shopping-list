@@ -14,7 +14,7 @@ const getAllListsQuery = gql`
 
 const AllLists = (props) => {
   const { data, loading, error } = useQuery(getAllListsQuery);
-  console.log(data.trips, "data from query");
+  console.log(data, "data from query");
   console.log(loading, "loading?");
   console.log(error, "error?");
   return (
