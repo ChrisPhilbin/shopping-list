@@ -93,6 +93,15 @@ const Mutation = new GraphQLObjectType({
         return item.save();
       },
     },
+    deleteItem: {
+      type: ItemType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Item.findByIdAndDelete(args.id);
+      },
+    },
     updateItem: {
       type: ItemType,
       args: {
@@ -115,6 +124,15 @@ const Mutation = new GraphQLObjectType({
           date: args.date,
         });
         return trip.save();
+      },
+    },
+    deleteTrip: {
+      type: TripType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return List.findByIdAndDelete(args.id);
       },
     },
   },
