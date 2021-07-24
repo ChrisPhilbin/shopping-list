@@ -6,6 +6,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import { GET_LIST_ITEMS } from "../quearies/quearies";
 import { UPDATE_CART_MUTATION } from "../mutations/mutations";
+import AddItem from "./AddItem";
 
 const ListDetails = (props) => {
   const list_id = props.match.params.list_id;
@@ -24,6 +25,7 @@ const ListDetails = (props) => {
         <Grid item lg>
           <h3>Details for list...</h3>
         </Grid>
+        <AddItem list_id={list_id} />
         {!loading && (
           <>
             {data.trip.items.map((item) => (
