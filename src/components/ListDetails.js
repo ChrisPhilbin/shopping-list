@@ -46,17 +46,9 @@ const ListDetails = (props) => {
                   tripId: list_id,
                   inCart: false,
                 },
-                update: (cache, { data: { createItem } }) => {
-                  const data = cache.readQuery({
-                    query: GET_LIST_ITEMS,
-                    variables: { id: list_id },
-                  });
-                  data.trip.items = [...data.trip.items, createItem];
-                  cache.writeQuery(
-                    { query: GET_LIST_ITEMS, variables: { id: list_id } },
-                    data
-                  );
-                },
+                refetchQueries: [
+                  { query: GET_LIST_ITEMS, variables: { id: list_id } },
+                ],
               })
             }
           >
