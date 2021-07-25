@@ -1,14 +1,21 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { ADD_ITEM_MUTATION } from "../mutations/mutations";
+import { GET_LIST_ITEMS } from "../quearies/quearies";
 
 const AddItem = (props) => {
   let [newItem, setNewItem] = useState("");
 
-  const [handleSubmit] = useMutation(ADD_ITEM_MUTATION);
+  const [createItem] = useMutation(ADD_ITEM_MUTATION, {
+    update: (cache, { data: { createItem } }) => {
+      const data = cache.readQuery({ query: GET_LIST_ITEMS });
+      data.trip.items = [...data.trip.items, createItem];
+      cache.writeQuery({ query: GET_LIST_ITEMS }, data);
+    },
+  });
 
   return (
     <Grid item lg>
@@ -19,7 +26,7 @@ const AddItem = (props) => {
       />
       <Button
         onClick={() =>
-          handleSubmit({
+          createItem({
             variables: { name: newItem, tripId: props.list_id, inCart: false },
           })
         }
