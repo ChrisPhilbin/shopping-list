@@ -27,15 +27,15 @@ const AllLists = (props) => {
       {data && (
         <>
           {data.trips.map((trip) => (
-            <Grid item xs={3}>
-              <Paper elevation="5" className={classes.listPaper}>
+            <Grid item xs={3} key={trip.id}>
+              <Paper elevation={3} className={classes.listPaper}>
                 <IconButton
                   aria-label="delete"
                   onClick={() => deleteList({ variables: { id: trip.id } })}
                 >
                   <DeleteIcon fontSize="small" />
                 </IconButton>
-                <Link to={`/lists/${trip.id}`} key={trip.id}>
+                <Link to={`/lists/${trip.id}`}>
                   {trip.storeName} on {trip.date}
                 </Link>
               </Paper>
