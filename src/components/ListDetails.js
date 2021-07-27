@@ -40,7 +40,11 @@ const ListDetails = (props) => {
         alignItems="center"
       >
         <Grid item lg>
-          <h3>Details for list...</h3>
+          {!loading && (
+            <h3>
+              {data.trip.storeName} on {data.trip.date}
+            </h3>
+          )}
         </Grid>
         <Grid item lg>
           <TextField
@@ -63,16 +67,13 @@ const ListDetails = (props) => {
                     query: GET_LIST_ITEMS,
                     variables: { id: list_id },
                   });
-                  console.log(cache, "cache object being modified");
+                  console.log(data, "data object from reading query");
                   cache.writeQuery({
                     query: GET_LIST_ITEMS,
                     variables: { id: list_id },
-                    data: { items: [...data.trip.items, newItem] },
+                    data: { trip: { items: [...data.trip.items, newItem] } },
                   });
                 },
-                // refetchQueries: [
-                //   { query: GET_LIST_ITEMS, variables: { id: list_id } },
-                // ],
               })
             }
           >
@@ -106,14 +107,16 @@ const ListDetails = (props) => {
                 />
                 <IconButton
                   aria-label="delete"
-                  onClick={() =>
-                    deleteItem({
-                      variables: { id: item.id },
-                      refetchQueries: [
-                        { query: GET_LIST_ITEMS, variables: { id: list_id } },
-                      ],
-                    })
-                  }
+                  onClick={() => {
+                    if (window.confirm("Are you sure?")) {
+                      deleteItem({
+                        variables: { id: item.id },
+                        refetchQueries: [
+                          { query: GET_LIST_ITEMS, variables: { id: list_id } },
+                        ],
+                      });
+                    }
+                  }}
                 >
                   <DeleteIcon fontSize="small" />
                 </IconButton>

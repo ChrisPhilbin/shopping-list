@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
     marging: 15,
   },
+  mainDiv: {
+    marginLeft: 20,
+    marginRight: 20,
+  },
 }));
 
 const AllLists = (props) => {
@@ -23,27 +27,29 @@ const AllLists = (props) => {
   const [deleteList] = useMutation(DELETE_LIST_MUTATION);
 
   return (
-    <Grid container spacing={3}>
-      {data && (
-        <>
-          {data.trips.map((trip) => (
-            <Grid item xs={3} key={trip.id}>
-              <Paper elevation={3} className={classes.listPaper}>
-                <IconButton
-                  aria-label="delete"
-                  onClick={() => deleteList({ variables: { id: trip.id } })}
-                >
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-                <Link to={`/lists/${trip.id}`}>
-                  {trip.storeName} on {trip.date}
-                </Link>
-              </Paper>
-            </Grid>
-          ))}
-        </>
-      )}
-    </Grid>
+    <div className={classes.mainDiv}>
+      <Grid container spacing={3}>
+        {data && (
+          <>
+            {data.trips.map((trip) => (
+              <Grid item xs={3} key={trip.id}>
+                <Paper elevation={3} className={classes.listPaper}>
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => deleteList({ variables: { id: trip.id } })}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                  <Link to={`/lists/${trip.id}`}>
+                    {trip.storeName} on {trip.date}
+                  </Link>
+                </Paper>
+              </Grid>
+            ))}
+          </>
+        )}
+      </Grid>
+    </div>
   );
 };
 

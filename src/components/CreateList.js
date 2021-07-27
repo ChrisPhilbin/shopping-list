@@ -1,27 +1,19 @@
 import React, { useState } from "react";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { CREATE_TRIP_MUTATION } from "../mutations/mutations";
 
-const createListMutation = gql`
-  mutation ($storeName: String!, $date: String!) {
-    addTrip(storeName: $storeName, date: $date) {
-      id
-      storeName
-      date
-    }
-  }
-`;
-
-const CreateList = () => {
+const CreateList = (props) => {
   let [formState, setFormState] = useState({
     storeName: "",
     date: "",
   });
 
-  const [createList] = useMutation(createListMutation, {
+  const [createList] = useMutation(CREATE_TRIP_MUTATION, {
     variables: {
       storeName: formState.storeName,
       date: formState.date,
     },
+    onCompleted: () => props.history.push("/"),
   });
 
   return (

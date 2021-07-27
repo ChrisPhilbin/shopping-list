@@ -37,3 +37,13 @@ export const DELETE_LIST_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_TRIP_MUTATION = gql`
+  mutation addTrip($storeName: String!, $date: String!) {
+    addTrip(storeName: $storeName, date: $date) {
+      id
+      storeName
+      date
+    }
+  }
+`;
