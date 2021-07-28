@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_TRIP_MUTATION } from "../mutations/mutations";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { GET_ALL_LISTS_QUERY } from "../quearies/quearies";
 
 const CreateList = (props) => {
   let [formState, setFormState] = useState({
@@ -15,7 +16,16 @@ const CreateList = (props) => {
       storeName: formState.storeName,
       date: formState.date,
     },
-    onCompleted: () => props.history.push("/"),
+    update: (cache, mutationResult) => {
+      const newTrip = mutationResult.data.addTrip;
+      const data = cache.readQuery({
+        query: GET_ALL_LISTS_QUERY,
+      });
+      cache.writeQuery({
+        query: GET_ALL_LISTS_QUERY,
+        data: { trips: [...data.trips.concat(newTrip)] },
+      });
+    },
   });
 
   return (

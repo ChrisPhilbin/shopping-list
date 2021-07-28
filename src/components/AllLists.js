@@ -40,7 +40,12 @@ const AllLists = (props) => {
                 <Paper elevation={3} className={classes.listPaper}>
                   <IconButton
                     aria-label="delete"
-                    onClick={() => deleteList({ variables: { id: trip.id } })}
+                    onClick={() =>
+                      deleteList({
+                        variables: { id: trip.id },
+                        refetchQueries: [{ query: GET_ALL_LISTS_QUERY }],
+                      })
+                    }
                   >
                     <DeleteIcon fontSize="small" />
                   </IconButton>

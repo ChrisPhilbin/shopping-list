@@ -62,7 +62,9 @@ const ListDetails = (props) => {
                   inCart: false,
                 },
                 update: (cache, mutationResult) => {
+                  console.log(cache, "cache object");
                   const newItem = mutationResult.data.addItem;
+                  console.log(newItem, "newItem?");
                   const data = cache.readQuery({
                     query: GET_LIST_ITEMS,
                     variables: { id: list_id },
@@ -71,7 +73,9 @@ const ListDetails = (props) => {
                   cache.writeQuery({
                     query: GET_LIST_ITEMS,
                     variables: { id: list_id },
-                    data: { trip: { items: [...data.trip.items, newItem] } },
+                    data: {
+                      trip: { items: [...data.trip.items.concat(newItem)] },
+                    },
                   });
                 },
               })
