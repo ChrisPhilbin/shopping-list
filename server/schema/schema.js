@@ -132,7 +132,7 @@ const Mutation = new GraphQLObjectType({
         id: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
-        return List.findByIdAndDelete(args.id);
+        return Trip.findByIdAndDelete(args.id);
       },
     },
   },
