@@ -3,7 +3,9 @@ import { gql } from "@apollo/client";
 export const GET_LIST_ITEMS = gql`
   query ($id: ID) {
     trip(id: $id) {
+      storeName
       id
+      date
       items {
         name
         id

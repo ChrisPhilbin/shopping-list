@@ -10,6 +10,16 @@ export const UPDATE_CART_MUTATION = gql`
   }
 `;
 
+export const ADD_ITEM_MUTATION = gql`
+  mutation addItem($name: String!, $tripId: ID!, $inCart: Boolean!) {
+    addItem(name: $name, tripId: $tripId, inCart: $inCart) {
+      name
+      id
+      inCart
+    }
+  }
+`;
+
 export const DELETE_ITEM_MUTATION = gql`
   mutation deleteItem($id: ID!) {
     deleteItem(id: $id) {
@@ -24,6 +34,16 @@ export const DELETE_LIST_MUTATION = gql`
     deleteTrip(id: $id) {
       id
       storeName
+    }
+  }
+`;
+
+export const CREATE_TRIP_MUTATION = gql`
+  mutation addTrip($storeName: String!, $date: String!) {
+    addTrip(storeName: $storeName, date: $date) {
+      id
+      storeName
+      date
     }
   }
 `;
