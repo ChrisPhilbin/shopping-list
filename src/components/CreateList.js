@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_TRIP_MUTATION } from "../mutations/mutations";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const CreateList = (props) => {
   let [formState, setFormState] = useState({
@@ -17,33 +19,31 @@ const CreateList = (props) => {
   });
 
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          createList();
-        }}
-      >
-        <div>
-          <input
-            type="text"
-            placeholder="Enter the store name"
-            onChange={(e) =>
-              setFormState({ ...formState, storeName: e.target.value })
-            }
-          />
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        createList();
+      }}
+    >
+      <div>
+        <TextField
+          label="List name"
+          placeholder="Enter list name"
+          variant="outlined"
+          onChange={(e) =>
+            setFormState({ ...formState, storeName: e.target.value })
+          }
+        />
 
-          <input
-            type="text"
-            placeholder="MM/DD/YY"
-            onChange={(e) =>
-              setFormState({ ...formState, date: e.target.value })
-            }
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+        <TextField
+          label="Date"
+          placeholder="MM/DD/YY"
+          variant="outlined"
+          onChange={(e) => setFormState({ ...formState, date: e.target.value })}
+        />
+        <Button onClick={() => createList()}>Create</Button>
+      </div>
+    </form>
   );
 };
 

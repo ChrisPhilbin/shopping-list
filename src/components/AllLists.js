@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/core";
+import CreateList from "./CreateList";
 
 const useStyles = makeStyles((theme) => ({
   listPaper: {
@@ -29,6 +30,9 @@ const AllLists = (props) => {
   return (
     <div className={classes.mainDiv}>
       <Grid container spacing={3}>
+        <Grid item xs={12} align="center">
+          <CreateList props={props} />
+        </Grid>
         {data && (
           <>
             {data.trips.map((trip) => (
