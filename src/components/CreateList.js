@@ -4,6 +4,7 @@ import { CREATE_TRIP_MUTATION } from "../mutations/mutations";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { GET_ALL_LISTS_QUERY } from "../quearies/quearies";
+import Grid from "@material-ui/core/Grid";
 
 const CreateList = (props) => {
   let [formState, setFormState] = useState({
@@ -35,7 +36,7 @@ const CreateList = (props) => {
         createList();
       }}
     >
-      <div>
+      <Grid item align="center">
         <TextField
           label="List name"
           placeholder="Enter list name"
@@ -51,8 +52,8 @@ const CreateList = (props) => {
           variant="outlined"
           onChange={(e) => setFormState({ ...formState, date: e.target.value })}
         />
-        <Button onClick={() => createList()}>Create</Button>
-      </div>
+      </Grid>
+      <Button onClick={() => createList()}>Create</Button>
     </form>
   );
 };

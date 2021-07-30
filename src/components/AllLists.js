@@ -11,6 +11,9 @@ import { makeStyles } from "@material-ui/core";
 import CreateList from "./CreateList";
 
 const useStyles = makeStyles((theme) => ({
+  createList: {
+    margin: 10,
+  },
   listPaper: {
     padding: 20,
     marging: 15,
@@ -29,10 +32,11 @@ const AllLists = (props) => {
 
   return (
     <div className={classes.mainDiv}>
+      <Grid container xs={12} align="center" direction={"row"} spacing={3}>
+        <CreateList props={props} />
+      </Grid>
+
       <Grid container spacing={3}>
-        <Grid item xs={12} align="center">
-          <CreateList props={props} />
-        </Grid>
         {data && (
           <>
             {data.trips.map((trip) => (
