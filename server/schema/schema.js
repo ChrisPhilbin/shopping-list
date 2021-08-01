@@ -123,6 +123,8 @@ const Mutation = new GraphQLObjectType({
           storeName: args.storeName,
           date: args.date,
         });
+        if (!args.storeName) return new Error("Store name cannot be blank!");
+        if (!args.date) return new Error("Date value cannot be blank!");
         return trip.save();
       },
     },
