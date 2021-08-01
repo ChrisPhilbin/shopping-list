@@ -85,7 +85,7 @@ const Mutation = new GraphQLObjectType({
         tripId: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
-        if (!args.name) return new Error("Error: Item name cannot be blank");
+        if (!args.name) return new Error("Item name cannot be blank");
         let item = new Item({
           name: args.name,
           inCart: args.inCart,

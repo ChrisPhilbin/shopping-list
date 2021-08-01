@@ -19,17 +19,20 @@ const ListDetails = (props) => {
 
   const list_id = props.match.params.list_id;
 
-  const { data, loading } = useQuery(GET_LIST_ITEMS, {
+  const { data, error, loading } = useQuery(GET_LIST_ITEMS, {
     variables: {
       id: list_id,
     },
+    errorPolicy: "all",
   });
-
-  console.log(data, "data coming back from list items query");
 
   const [handleChange] = useMutation(UPDATE_CART_MUTATION);
 
-  const [createItem] = useMutation(ADD_ITEM_MUTATION);
+  const [createItem] = useMutation(ADD_ITEM_MUTATION, {
+    errorPolicy: "all",
+  });
+
+  console.log(createItem, "createItem");
 
   const [deleteItem] = useMutation(DELETE_ITEM_MUTATION);
 
@@ -56,7 +59,7 @@ const ListDetails = (props) => {
             onChange={(e) => setNewItem(e.target.value)}
           />
           <Button
-            onClick={() =>
+            onClick={() => {
               createItem({
                 variables: {
                   name: newItem,
@@ -77,8 +80,8 @@ const ListDetails = (props) => {
                     },
                   });
                 },
-              })
-            }
+              }).catch((error) => console.log(error, "caught error"));
+            }}
           >
             Add
           </Button>
