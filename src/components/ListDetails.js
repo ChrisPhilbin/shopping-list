@@ -25,6 +25,8 @@ const ListDetails = (props) => {
     },
   });
 
+  console.log(data, "data coming back from list items query");
+
   const [handleChange] = useMutation(UPDATE_CART_MUTATION);
 
   const [createItem] = useMutation(ADD_ITEM_MUTATION);
@@ -62,14 +64,11 @@ const ListDetails = (props) => {
                   inCart: false,
                 },
                 update: (cache, mutationResult) => {
-                  console.log(cache, "cache object");
                   const newItem = mutationResult.data.addItem;
-                  console.log(newItem, "newItem?");
                   const data = cache.readQuery({
                     query: GET_LIST_ITEMS,
                     variables: { id: list_id },
                   });
-                  console.log(data, "data object from reading query");
                   cache.writeQuery({
                     query: GET_LIST_ITEMS,
                     variables: { id: list_id },

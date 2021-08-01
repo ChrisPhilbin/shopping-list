@@ -15,9 +15,9 @@ const {
 const ItemType = new GraphQLObjectType({
   name: "Item",
   fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    inCart: { type: GraphQLBoolean },
+    id: { type: GraphQLNonNull(GraphQLID) },
+    name: { type: GraphQLNonNull(GraphQLString) },
+    inCart: { type: GraphQLNonNull(GraphQLBoolean) },
     trip: {
       type: TripType,
       resolve(parent, args) {
@@ -30,9 +30,9 @@ const ItemType = new GraphQLObjectType({
 const TripType = new GraphQLObjectType({
   name: "Trip",
   fields: () => ({
-    id: { type: GraphQLID },
-    storeName: { type: GraphQLString },
-    date: { type: GraphQLString },
+    id: { type: GraphQLNonNull(GraphQLID) },
+    storeName: { type: GraphQLNonNull(GraphQLString) },
+    date: { type: GraphQLNonNull(GraphQLString) },
     items: {
       type: new GraphQLList(ItemType),
       resolve(parent, args) {
@@ -85,6 +85,7 @@ const Mutation = new GraphQLObjectType({
         tripId: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
+        if (!args.name) return new Error("Error: Item name cannot be blank");
         let item = new Item({
           name: args.name,
           inCart: args.inCart,
