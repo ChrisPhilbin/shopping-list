@@ -4,9 +4,21 @@ import { CREATE_TRIP_MUTATION } from "../mutations/mutations";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { GET_ALL_LISTS_QUERY } from "../quearies/quearies";
-import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  formElement: {
+    margin: 10,
+  },
+  submitButton: {
+    position: "relative",
+    marinTop: "10px",
+  },
+}));
 
 const CreateList = (props) => {
+  const classes = useStyles();
+
   let [formState, setFormState] = useState({
     storeName: "",
     date: "",
@@ -35,9 +47,11 @@ const CreateList = (props) => {
         e.preventDefault();
         createList();
       }}
+      className={classes.createForm}
     >
-      <Grid item align="center">
+      <div>
         <TextField
+          className={classes.formElement}
           label="List name"
           placeholder="Enter list name"
           variant="outlined"
@@ -47,13 +61,21 @@ const CreateList = (props) => {
         />
 
         <TextField
+          className={classes.formElement}
           label="Date"
           placeholder="MM/DD/YY"
           variant="outlined"
           onChange={(e) => setFormState({ ...formState, date: e.target.value })}
         />
-      </Grid>
-      <Button onClick={() => createList()}>Create</Button>
+        <Button
+          className={classes.submitButton}
+          color="primary"
+          variant="contained"
+          onClick={() => createList()}
+        >
+          Create
+        </Button>
+      </div>
     </form>
   );
 };

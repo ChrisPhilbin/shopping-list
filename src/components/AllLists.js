@@ -32,8 +32,10 @@ const AllLists = (props) => {
 
   return (
     <div className={classes.mainDiv}>
-      <Grid container xs={12} align="center" direction={"row"} spacing={3}>
-        <CreateList props={props} />
+      <Grid container direction={"row"} spacing={3}>
+        <Grid item xs={12} align="center">
+          <CreateList props={props} />
+        </Grid>
       </Grid>
 
       <Grid container spacing={3}>
